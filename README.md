@@ -5,13 +5,18 @@ This repository contains my solutions for the complete curriculum of [The Odin P
 The repository layout follows the structure of the curriculum:
 
 ```
-the-odin-project/
-
-  foundations/
-
-  fullstack-javascript
-
-  fullstack-ruby-on-rails
+the-odin-project
+│
+├── foundations
+│   ├── 01_recipes
+│   ├── 02_landing-page
+│   └── 03_rock-paper-scissors
+│
+├── fullstack-javascript
+│   └── ...
+│
+└── fullstack-ruby-on-rails
+    └── ...
 ```
 
 Each project is organized in its own directory and is fully self-contained, including any required documentation or dependencies.
