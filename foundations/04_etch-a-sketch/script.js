@@ -2,8 +2,9 @@ const container = document.getElementById('grid-container');
 const input = document.querySelector('input');
 const output = document.querySelector('output');
 const resetBtn = document.getElementById('reset-btn');
+const radioInputs = document.querySelectorAll('input[type="radio"]');
 
-let squares;
+let squares, selectedChoice;
 
 const updateGrid = (value) => {
   const style = (
@@ -25,14 +26,45 @@ const updateGrid = (value) => {
   squares = document.querySelectorAll('.grid-square');
 
   squares.forEach((square) => {
-    square.addEventListener('mouseenter', (event) => {
-      square.style.backgroundColor = 'dimgrey';
+    square.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+    square.addEventListener('mouseenter', () => {
+      switch (selectedChoice) {
+        case 'normal':
+          let prevColor = square.style.backgroundColor;
+
+          if (!square.style.backgroundColor.includes('0, 0, 0')) {
+            prevColor = 'rgba(0, 0, 0, 0)';
+          }
+
+          const prevAlpha = parseFloat(prevColor.split(',')[3]);
+
+          if (prevAlpha !== 1) {
+            square.style.backgroundColor = `rgba(0, 0, 0, ${prevAlpha + 0.1})`;
+          }
+
+          break;
+        case 'rainbow':
+          const red = Math.floor(Math.random() * 255);
+          const green = Math.floor(Math.random() * 255);
+          const blue = Math.floor(Math.random() * 255);
+          square.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+          break;
+        default:
+          break;
+      }
     });
   });
 };
 
 document.addEventListener('DOMContentLoaded', () => {
   updateGrid(input.value);
+  selectedChoice = 'normal';
+
+  radioInputs.forEach((input) => {
+    input.addEventListener('click', (event) => {
+      selectedChoice = event.target.value;
+    });
+  });
 
   resetBtn.addEventListener('click', () => {
     updateGrid(input.value);

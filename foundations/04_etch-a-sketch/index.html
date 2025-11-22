@@ -10,7 +10,7 @@
 <body>
   <h1>Etch-a-Sketch</h1>
   <div id="container">
-    <section>
+    <section id="left-section">
       <h2>Dimensions</h2>
       <div id="slider-container">
         <input 
@@ -21,7 +21,30 @@
           min="16"
           max="100"
         />
-        <output></output> grid
+        <div>
+          <output></output> grid
+        </div>
+      </div>
+
+      <h2>Drawing Mode</h2>
+      <div>
+        <input
+          type="radio"
+          name="mode"
+          id="normal"
+          value="normal"
+          checked
+        />
+        <label for="normal">Normal</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          name="mode"
+          id="rainbow"
+          value="rainbow"
+        />
+        <label for="rainbow">Rainbow</label>
       </div>
     </section>
 
