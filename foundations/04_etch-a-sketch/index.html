@@ -9,8 +9,29 @@
 
 <body>
   <h1>Etch-a-Sketch</h1>
-  <h2>Drawing Area</h2>
-  <div id="grid-container"></div>
+  <div id="container">
+    <section>
+      <h2>Dimensions</h2>
+      <div id="slider-container">
+        <input 
+          type="range"
+          id="dimensions"
+          name="dimensions"
+          value="16"
+          min="16"
+          max="100"
+        />
+        <output></output> grid
+      </div>
+    </section>
+
+    <section>
+      <h2>Drawing Area</h2>
+      <div id="grid-container"></div>
+      <button id="reset-btn">Reset</button>
+    </section>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
