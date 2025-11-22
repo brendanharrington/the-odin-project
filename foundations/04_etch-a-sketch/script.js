@@ -1,4 +1,5 @@
 const container = document.getElementById('grid-container');
+let squares;
 const value = 16;
 
 const updateGrid = () => {
@@ -11,8 +12,16 @@ const updateGrid = () => {
       </div>
       `;
   }
+
+  squares = document.querySelectorAll('.grid-square');
 };
 
 document.addEventListener('DOMContentLoaded', (event) => {
   updateGrid(value);
+
+  squares.forEach((square) => {
+    square.addEventListener('mouseenter', (event) => {
+      square.style.backgroundColor = 'grey';
+    });
+  });
 });
