@@ -7,3 +7,31 @@
 body {
   padding: 20px;
 }
+
+p {
+  margin: 10px auto;
+}
+
+input {
+  text-align: right;
+}
+
+#container {
+  display: inline-block;
+  flex-direction: column;
+  background-color: #aaa;
+  padding: 10px;
+}
+
+button {
+  border: none;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+}
+
+.equals-btn, .operator-btn {
+  background: orange;
+  color: white;
+  border: none;
+}

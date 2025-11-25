@@ -8,26 +8,37 @@
 </head>
 <body>
   <h1>Calculator</h1>
+  <p>Enter an expression with one of the following operators: +, -, *, or /</p>
 
-  <form>
-    <input
-      type="text"
-      id="first-number"
-    />
-    <select name="operators" id="operator-select">
-      <option value="+">+</option>
-      <option value="-">-</option>
-      <option value="/">/</option>
-      <option value="*">*</option>
-    </select>
-    <input
-      type="text"
-      id="second-number"
-    />
-    <button id="calculate-btn">Calculate</button>
-  </form>
-
-  <div>Result: <output></output></div>
+  <div id="container">
+    <input type="text" readonly>
+    <div>
+      <button class="backspace-btn">⌫</button>
+      <button class="clear-btn">C</button>
+      <button>%</button>
+      <button class="operator-btn">/</button>
+      <br>
+      <button class="number-btn">9</button>
+      <button class="number-btn">8</button>
+      <button class="number-btn">7</button>
+      <button class="operator-btn">*</button>
+      <br>
+      <button class="number-btn">6</button>
+      <button class="number-btn">5</button>
+      <button class="number-btn">4</button>
+      <button class="operator-btn">-</button>
+      <br>
+      <button class="number-btn">3</button>
+      <button class="number-btn">2</button>
+      <button class="number-btn">1</button>
+      <button class="operator-btn">+</button>
+      <br>
+      <button>🖩</button>
+      <button class="number-btn">0</button>
+      <button class="decimal-btn">.</button>
+      <button class="equals-btn">=</button>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
