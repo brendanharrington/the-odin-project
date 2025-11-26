@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  box-sizing: border-box;
+}
+
+/* Arial, Helvetica, Verdana, Tahoma, Trebuchet MS, Geneva, and Calibri */
+
+h1 {
+  font-size: 1.6rem;
+}
+
+h2 {
+  font-size: 1.2rem;
+}
+
+body {
+  display: grid;
+  grid-template-columns: auto repeat(2, 3fr) 2fr;
+  grid-template-rows: auto 5fr;
+  grid-template-areas:
+    'sidebar topbar topbar topbar'
+    'sidebar left left right';
+  height: 100vh;
+  width: 100vw;
+}
+
+
+
+#left, #right {
+  display: grid;
+  background-color:rgb(240, 240, 240);
+  padding: 1rem;
+  gap: 1rem;
+}
+
+#left {
+  grid-area: left;
+  grid-template-rows: auto repeat(3, 1fr);
+  grid-template-areas:
+    'projects projects'
+    'p1 p2'
+    'p3 p4'
+    'p5 p6';
+}
+
+
+#left > h3 {
+  grid-area: projects;
+}
+
+#left > div,
+#right > div {
+  background-color: white;
+  border-radius: 6px;
+  padding: 1.6rem;
+}
+
+#right {
+  grid-area: right;
+  grid-template-rows: auto 1fr auto 1fr;
+}
+
+#announcements {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+#right p {
+  font-size: 0.8rem;
+}
+
+#trending {
+  display: grid;
+  column-gap: 0.6rem;
+  align-items: center;
+  grid-template-columns: auto 1fr;
+}
+
+.pfp {
+  border-radius: 50%;
+  background-color: #000;
+}
+
+.small {
+  height: 2rem;
+  width: 2rem;
+}
