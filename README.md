@@ -10,10 +10,14 @@ the-odin-project
 ├── foundations
 │   ├── 01_recipes
 │   ├── 02_landing-page
-│   └── 03_rock-paper-scissors
+│   ├── 03_rock-paper-scissors
+│   ├── 04_etch-a-sketch
+│   └── 05_calculator
 │
 ├── fullstack-javascript
-│   └── ...
+│   └── 01_intermediate-html-and-css
+│       ├── 01_sign-up-form
+│       └── 02_admin-dashboard
 │
 └── fullstack-ruby-on-rails
     └── ...
