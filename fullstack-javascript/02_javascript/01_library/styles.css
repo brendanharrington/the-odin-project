@@ -1,13 +1,88 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background-color: aliceblue;
+  width: 100vw;
+  font-family: sans-serif;
   padding: 1rem;
 }
 
-#container {
-  padding: 1rem 0;
+table {
+  border: 2px solid rgb(50, 50, 50);
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+thead {
+  background-color: lightblue;
+}
+
+th {
+  border: solid;
+}
+
+th, td {
+  padding: 0.6rem 1rem;
+}
+
+td:nth-last-of-type(3) {
+  text-align: center;
+}
+
+dialog {
+  padding: 1rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+dialog > #close-btn {
+  display: flex;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: transparent;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  border: none;
+  margin: auto 0 auto auto;
+  transition: background-color 0.2s;
+}
+
+dialog > #close-btn:hover {
+  background-color: lightgrey;
+}
+
+dialog > p {
+  margin: 0.6rem auto 1rem 0;
+}
+
+dialog > form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+dialog > form > div:last-of-type {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+dialog > form > button {
+  margin-top: 0;
+  height: 2rem;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+#add-btn {
+  padding: 0.4rem 1rem;
 }
