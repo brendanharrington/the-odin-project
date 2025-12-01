@@ -33,9 +33,12 @@ body {
   transition: background-color 0.2s;
 }
 
-.tile:empty:hover {
+.tile.active {
   cursor: pointer;
-  background-color: rgb(255, 255, 255);
+}
+
+.tile.active:hover {
+  background-color: white;
 }
 
 .winning-tile {
@@ -46,4 +49,39 @@ body {
 #reset-btn {
   padding: 0.4rem 1rem;
   width: fit-content;
+}
+
+dialog {
+  padding: 1rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+dialog > #close-btn {
+  display: flex;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: transparent;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  border: none;
+  margin: auto 0 0.6rem auto;
+  transition: background-color 0.2s;
+}
+
+dialog > #close-btn:hover {
+  background-color: lightgrey;
+}
+
+#play-again-btn {
+  padding: 0.4rem 1rem;
+  margin-top: 1rem;
 }
