@@ -7,30 +7,30 @@ document.addEventListener('DOMContentLoaded', () => {
   let missingFields = false;
 
   const resetFields = () => {
-    inputs.forEach(input => {
+    inputs.forEach((input) => {
       input.value = '';
     });
   };
 
-  inputs.forEach(input => {
+  inputs.forEach((input) => {
     input.addEventListener('change', () => {
       if (input.value.trim() !== '') {
         input.style.borderColor = 'black';
       }
-    })
-  })
+    });
+  });
 
   createBtn.addEventListener('click', () => {
     missingFields = false;
 
-    inputs.forEach(input => {
+    inputs.forEach((input) => {
       if (input.value.trim() === '') {
-        console.log(input)
+        console.log(input);
         input.style.borderColor = 'red';
         missingFields = true;
       }
-    })
-    
+    });
+
     if (missingFields) {
       alert('all fields are required');
       return;
@@ -44,13 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const user = {};
-    inputs.forEach(input => {
+    inputs.forEach((input) => {
       if (input.id !== 'confirm-password') {
-        user[input.id] = input.value
+        user[input.id] = input.value;
       }
     });
 
-    console.log(user)
+    console.log(user);
 
     resetFields();
   });

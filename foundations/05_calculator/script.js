@@ -35,27 +35,27 @@ const operate = (num1, num2, operator) => {
 
     default:
       break;
-  };
+  }
 };
 
 const handleSubmit = (expression) => {
   const found = expression.match(OPERATORS);
   let result;
 
-    if (!found) {
-      console.log('returning');
-      return;
-    }
+  if (!found) {
+    console.log('returning');
+    return;
+  }
 
-    if (expression[expression.length - 1].match(OPERATORS)) {
-      result = 'SyntaxError';
-      return;
-    }
+  if (expression[expression.length - 1].match(OPERATORS)) {
+    result = 'SyntaxError';
+    return;
+  }
 
-    const operator = found[0];
-    const [num1, num2] = expression.split(operator);
-    result = operate(num1, num2, operator);
-    return result;
+  const operator = found[0];
+  const [num1, num2] = expression.split(operator);
+  result = operate(num1, num2, operator);
+  return result;
 };
 
 const updateDisplay = (action, prev = null, newChar = null) => {
@@ -83,10 +83,9 @@ const updateDisplay = (action, prev = null, newChar = null) => {
     default:
       break;
   }
-  
 
   return result;
-}
+};
 
 document.addEventListener('DOMContentLoaded', () => {
   const input = document.querySelector('input');
@@ -131,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  [...numberBtns, ...operatorBtns, decimalBtn].forEach(btn => {
+  [...numberBtns, ...operatorBtns, decimalBtn].forEach((btn) => {
     btn.addEventListener('click', () => {
       input.value += btn.textContent;
     });
@@ -158,11 +157,10 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    console.log(found)
+    console.log(found);
 
     const operator = found[0];
     const [num1, num2] = input.value.split(operator);
     input.value = operate(num1, num2, operator);
-    
   });
 });

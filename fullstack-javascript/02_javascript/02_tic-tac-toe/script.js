@@ -1,7 +1,12 @@
 const WIN_PATTERNS = [
-  [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
-  [0, 3, 6], [1, 4, 7], [2, 5, 8], // cols
-  [0, 4, 8], [2, 4, 6]  // diagonals
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8], // rows
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8], // cols
+  [0, 4, 8],
+  [2, 4, 6], // diagonals
 ];
 
 const createPlayer = (name) => {
@@ -18,16 +23,18 @@ const game = (() => {
 
   const players = [
     { name: createPlayer('Player 1'), symbol: 'x' },
-    { name: createPlayer('Player 2'), symbol: 'o' }
+    { name: createPlayer('Player 2'), symbol: 'o' },
   ];
 
   const play = (i) => {
     tiles[i] = players[playerIndex].symbol;
   };
 
-  const toggle = () => playerIndex = 1 - playerIndex;
+  const toggle = () => (playerIndex = 1 - playerIndex);
 
-  const increaseRound = () => { round++ };
+  const increaseRound = () => {
+    round++;
+  };
 
   const reset = () => {
     tiles = Array(9).fill(null);
@@ -35,10 +42,10 @@ const game = (() => {
     winners = [];
     round = 1;
   };
-  
+
   const checkWin = () => {
     for (const combo of WIN_PATTERNS) {
-      const [a,b,c] = combo;
+      const [a, b, c] = combo;
       if (tiles[a] && tiles[a] === tiles[b] && tiles[b] === tiles[c]) {
         winners = combo;
         return players[playerIndex].name;
@@ -48,11 +55,23 @@ const game = (() => {
   };
 
   return {
-    play, toggle, reset, checkWin, increaseRound, 
-    get winners() { return winners; }, 
-    get tiles() { return tiles; }, 
-    get player() { return players[playerIndex]; },
-    get round() { return round; }
+    play,
+    toggle,
+    reset,
+    checkWin,
+    increaseRound,
+    get winners() {
+      return winners;
+    },
+    get tiles() {
+      return tiles;
+    },
+    get player() {
+      return players[playerIndex];
+    },
+    get round() {
+      return round;
+    },
   };
 })();
 
@@ -83,10 +102,10 @@ const display = (() => {
   const renderDialog = () => {
     winnerEl.textContent = game.player.name;
     dialog.showModal();
-  }
-  
+  };
+
   const highlightWin = (indices) => {
-    indices.forEach(i => tileEls[i].classList.add('winning-tile'));
+    indices.forEach((i) => tileEls[i].classList.add('winning-tile'));
   };
 
   const handleTileClick = (i) => {
@@ -99,7 +118,7 @@ const display = (() => {
     const winner = game.checkWin();
     if (winner) {
       highlightWin(game.winners);
-      tileEls.forEach(tile => {
+      tileEls.forEach((tile) => {
         tile.classList.remove('active');
       });
       renderDialog();

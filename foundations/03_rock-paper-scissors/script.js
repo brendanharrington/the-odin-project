@@ -21,9 +21,9 @@ const playRound = (playerSelection, computerSelection) => {
     (playerSelection === 'paper' && computerSelection === 'rock') ||
     (playerSelection === 'scissors' && computerSelection === 'paper')
   ) {
-    return "You win!";
+    return 'You win!';
   } else {
-    return "You lose!";
+    return 'You lose!';
   }
 };
 
@@ -33,14 +33,14 @@ const updateScore = (result) => {
       child.disabled = true;
     }
   }
-  if (result === "You win!") {
+  if (result === 'You win!') {
     playerScore.textContent = parseInt(playerScore.textContent) + 1;
-    resultDiv.textContent = "You won this round!";
-  } else if (result === "You lose!") {
+    resultDiv.textContent = 'You won this round!';
+  } else if (result === 'You lose!') {
     computerScore.textContent = parseInt(computerScore.textContent) + 1;
-    resultDiv.textContent = "You lost this round!";
+    resultDiv.textContent = 'You lost this round!';
   } else {
-    resultDiv.textContent = "This round is a tie!";
+    resultDiv.textContent = 'This round is a tie!';
   }
 };
 
@@ -52,7 +52,7 @@ const resetGame = () => {
   playerScore.textContent = 0;
   computerScore.textContent = 0;
   roundSpan.textContent = 1;
-  resultDiv.textContent = "";
+  resultDiv.textContent = '';
 };
 
 for (const child of choicesDiv.children) {
@@ -64,6 +64,6 @@ for (const child of choicesDiv.children) {
     round++;
     roundSpan.textContent = round;
   });
-};
+}
 
 resetButton.addEventListener('click', resetGame);

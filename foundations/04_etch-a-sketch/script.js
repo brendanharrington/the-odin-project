@@ -7,20 +7,18 @@ const radioInputs = document.querySelectorAll('input[type="radio"]');
 let squares, selectedChoice;
 
 const updateGrid = (value) => {
-  const style = (
-    `height: calc(var(--container-size) / ${value});`
-    + ` width: calc(var(--container-size) / ${value});`  
-  );
+  const style =
+    `height: calc(var(--container-size) / ${value});` +
+    ` width: calc(var(--container-size) / ${value});`;
 
   container.innerHTML = '';
   output.textContent = `${input.value}x${input.value}`;
 
   for (let i = 0; i < value; i++) {
-    container.innerHTML += (
-      '<div class="grid-row">'
-      + `<div class="grid-square" style="${style}"></div>`.repeat(value)
-      + '</div>'
-    );
+    container.innerHTML +=
+      '<div class="grid-row">' +
+      `<div class="grid-square" style="${style}"></div>`.repeat(value) +
+      '</div>';
   }
 
   squares = document.querySelectorAll('.grid-square');
@@ -75,6 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   input.addEventListener('mouseup', (event) => {
-    updateGrid(event.target.value)
+    updateGrid(event.target.value);
   });
 });
