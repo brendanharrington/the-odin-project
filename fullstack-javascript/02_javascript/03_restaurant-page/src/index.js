@@ -1,1 +1,4 @@
-console.log('Hello, Webpack!');
+import './index.css';
+import { greeting } from './greeting.js';
+
+console.log(greeting);
