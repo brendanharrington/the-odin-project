@@ -7,7 +7,31 @@
   <title>Todo List</title>
 </head>
 <body>
-  <h1>Todo List</h1>
+  <nav id="top-bar">
+    <h1>Todo List</h1>
+    <button>Inbox</button>
+    <button id="create-btn">Create</button>
+    <button>Projects</button>
+  </nav>
+
+  <dialog>
+    <button id="close-btn">&#215;</button>
+    <form>
+      <label>
+        title
+        <input type="text">
+      </label>
+      <label>
+        description
+        <input type="text">
+      </label>
+      <label>
+        due date
+        <input type="date">
+      </label>
+      <button>add</button>
+    </form>
+  </dialog>
 
   <div id="content"></div>
 
