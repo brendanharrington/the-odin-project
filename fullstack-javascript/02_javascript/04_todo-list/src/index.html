@@ -3,37 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
   <title>Todo List</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <nav id="top-bar">
-    <h1>Todo List</h1>
-    <button>Inbox</button>
-    <button id="create-btn">Create</button>
-    <button>Projects</button>
-  </nav>
+  <header>
+    <nav id="top-bar">
+      <h1>Todo List</h1>
+      <button>Inbox</button>
+      <button id="create-btn">Create</button>
+      <button>Projects</button>
+    </nav>
+  </header>
 
-  <dialog>
-    <button id="close-btn">&#215;</button>
-    <form>
+  <main id="content">
+    <section>
+      <h2>Inbox</h2>
+      <ul id="list"></ul>
+    </section>
+  </main>
+
+  <dialog id="todo-dialog">
+    <form method="dialog" id="todo-form">
+      <header class="dialog-header">
+        <h3>New Todo</h3>
+        <button id="close-btn" aria-label="Close">&times;</button>
+      </header>
+
       <label>
-        title
-        <input type="text">
+        Title
+        <input name="title" type="text" required />
       </label>
+
       <label>
-        description
-        <input type="text">
+        Description
+        <input name="description" type="text" />
       </label>
+
       <label>
-        due date
-        <input type="date">
+        Due Date
+        <input name="dueDate" type="date" />
       </label>
-      <button>add</button>
+
+      <button type="submit">Add</button>
     </form>
   </dialog>
-
-  <div id="content"></div>
 
   <script src="../index.js" defer></script>
 </body>

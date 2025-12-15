@@ -79,41 +79,60 @@ const ITEMS = [
   }
 ];
 
-const content = document.getElementById('content');
-const dialog = document.querySelector('dialog');
+const list = document.getElementById('list');
+const dialog = document.getElementById('todo-dialog');
 const createBtn = document.getElementById('create-btn');
 const closeBtn = document.getElementById('close-btn');
+const form = document.getElementById('todo-form');
 
-const inbox = content.appendChild(document.createElement('h2'));
-inbox.textContent = 'Inbox';
+function createTodoItem(item) {
+  const li = document.createElement('li');
+  li.className = 'item';
 
-const list = content.appendChild(document.createElement('div'));
-list.id = 'list';
+  const checkbox = document.createElement('button');
+  checkbox.className = 'checkbox';
+  checkbox.dataset.complete = item.complete;
 
+  checkbox.addEventListener('click', () => {
+    item.complete = !item.complete;
+    checkbox.dataset.complete = item.complete;
+  });
 
-ITEMS.forEach(item => {
-  const itemEl = list.appendChild(document.createElement('div'));
-  itemEl.classList.add('item');
-  
-  const checkbox = itemEl.appendChild(document.createElement('button'));
-  checkbox.classList.add('checkbox');
-  
-  const itemDiv = itemEl.appendChild(document.createElement('div'));
-  
-  const itemTitle = itemDiv.appendChild(document.createElement('h3'));
-  itemTitle.textContent = item.title;
+  const content = document.createElement('div');
+  content.innerHTML = `
+    <h3>${item.title}</h3>
+    <p>${item.description}</p>
+  `;
 
-  const itemDescription = itemDiv.appendChild(document.createElement('p'));
-  itemDescription.textContent = item.description;
-});
+  li.append(checkbox, content);
+  return li;
+}
 
-const section = content.appendChild(document.createElement('h2'));
-section.textContent = 'Section';
+function renderTodos(items) {
+  list.innerHTML = '';
+  const fragment = document.createDocumentFragment();
+  items.forEach(item => fragment.appendChild(createTodoItem(item)));
+  list.appendChild(fragment);
+}
 
-createBtn.addEventListener('click', () => {
-  dialog.showModal();
-});
+renderTodos(ITEMS);
 
-closeBtn.addEventListener('click', () => {
+createBtn.addEventListener('click', () => dialog.showModal());
+closeBtn.addEventListener('click', () => dialog.close());
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const data = new FormData(form);
+  ITEMS.push({
+    title: data.get('title'),
+    description: data.get('description'),
+    dueDate: data.get('dueDate'),
+    priority: 1,
+    complete: false
+  });
+
+  renderTodos(ITEMS);
+  form.reset();
   dialog.close();
 });
