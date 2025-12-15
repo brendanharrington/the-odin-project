@@ -1,89 +1,91 @@
+/* =========================
+   DATA
+========================= */
+
+const PROJECTS = [
+  { id: 'inbox', name: 'Inbox' },
+  { id: 'work', name: 'Work' },
+  { id: 'personal', name: 'Personal' }
+];
+
 const ITEMS = [
   {
-    id: 't-001',
+    id: 't1',
+    title: 'Finish UI',
+    description: 'Complete layout and styles',
+    dueDate: '2025-01-18',
+    priority: 4,
+    complete: false,
+    projectId: 'work'
+  },
+  {
+    id: 't2',
     title: 'Buy groceries',
-    description: 'Milk, eggs, bread, and vegetables',
+    description: 'Milk and eggs',
     dueDate: '2025-01-15',
     priority: 2,
     complete: false,
-    project: 'Personal',
-    tags: ['errands', 'shopping'],
-    createdAt: '2025-01-10',
-    updatedAt: '2025-01-10',
-    notes: ''
-  },
-  {
-    id: 't-002',
-    title: 'Finish todo app UI',
-    description: 'Implement list view and item detail modal',
-    dueDate: '2025-01-18',
-    priority: 5,
-    complete: false,
-    project: 'Side Projects',
-    tags: ['coding', 'frontend'],
-    createdAt: '2025-01-09',
-    updatedAt: '2025-01-12',
-    notes: 'Focus on accessibility and keyboard navigation'
-  },
-  {
-    id: 't-003',
-    title: 'Refactor task logic',
-    description: 'Extract task creation and validation into a module',
-    dueDate: '2025-01-20',
-    priority: 4,
-    complete: true,
-    project: 'Side Projects',
-    tags: ['refactor', 'javascript'],
-    createdAt: '2025-01-05',
-    updatedAt: '2025-01-11',
-    notes: ''
-  },
-  {
-    id: 't-004',
-    title: 'Submit job application',
-    description: 'Complete application and upload resume',
-    dueDate: '2025-01-14',
-    priority: 5,
-    complete: true,
-    project: 'Career',
-    tags: ['career'],
-    createdAt: '2025-01-07',
-    updatedAt: '2025-01-08',
-    notes: 'Tailored resume for frontend role'
-  },
-  {
-    id: 't-005',
-    title: 'Workout',
-    description: '45-minute strength training session',
-    dueDate: '2025-01-13',
-    priority: 1,
-    complete: false,
-    project: 'Health',
-    tags: ['fitness'],
-    createdAt: '2025-01-13',
-    updatedAt: '2025-01-13',
-    notes: ''
-  },
-  {
-    id: 't-006',
-    title: 'Read documentation',
-    description: 'Review MDN modules on ES modules and bundlers',
-    dueDate: '2025-01-22',
-    priority: 3,
-    complete: false,
-    project: 'Learning',
-    tags: ['reading', 'javascript'],
-    createdAt: '2025-01-10',
-    updatedAt: '2025-01-10',
-    notes: 'Take notes for future reference'
+    projectId: 'personal'
   }
 ];
+
+const state = {
+  activeProjectId: 'inbox'
+};
+
+
+/* =========================
+   DOM REFERENCES
+========================= */
 
 const list = document.getElementById('list');
 const dialog = document.getElementById('todo-dialog');
 const createBtn = document.getElementById('create-btn');
 const closeBtn = document.getElementById('close-btn');
+const projectsBtn = document.getElementById('projects-btn');
 const form = document.getElementById('todo-form');
+const heading = document.querySelector('main h2');
+
+
+/* =========================
+   SELECT POPULATION
+========================= */
+
+function populateProjectSelect() {
+  const select = form.querySelector('select[name="projectId"]');
+  select.innerHTML = '';
+
+  PROJECTS.forEach(project => {
+    const option = document.createElement('option');
+    option.value = project.id;
+    option.textContent = project.name;
+    select.appendChild(option);
+  });
+}
+
+
+/* =========================
+   STATE DERIVED DATA
+========================= */
+
+function getVisibleTodos() {
+  if (state.activeProjectId === 'inbox') {
+    return ITEMS;
+  }
+
+  return ITEMS.filter(
+    item => item.projectId === state.activeProjectId
+  );
+}
+
+function getActiveProjectName() {
+  return PROJECTS.find(p => p.id === state.activeProjectId)?.name ?? 'Inbox';
+}
+
+
+/* =========================
+   RENDERING
+========================= */
 
 function createTodoItem(item) {
   const li = document.createElement('li');
@@ -110,29 +112,97 @@ function createTodoItem(item) {
 
 function renderTodos(items) {
   list.innerHTML = '';
+
   const fragment = document.createDocumentFragment();
   items.forEach(item => fragment.appendChild(createTodoItem(item)));
   list.appendChild(fragment);
 }
 
-renderTodos(ITEMS);
+function render() {
+  heading.textContent = getActiveProjectName();
+  renderTodos(getVisibleTodos());
+}
+
+
+/* =========================
+   PROJECTS MENU
+========================= */
+
+function openProjectsMenu() {
+  const menu = document.createElement('div');
+  menu.style.position = 'absolute';
+  menu.style.top = '3.5rem';
+  menu.style.right = '1rem';
+  menu.style.background = 'white';
+  menu.style.border = '1px solid #ccc';
+  menu.style.padding = '0.5rem';
+  menu.style.zIndex = '100';
+
+  PROJECTS.forEach(project => {
+    const btn = document.createElement('button');
+    btn.textContent = project.name;
+    btn.style.display = 'block';
+    btn.style.width = '100%';
+
+    btn.addEventListener('click', () => {
+      state.activeProjectId = project.id;
+      document.body.removeChild(menu);
+      render();
+    });
+
+    menu.appendChild(btn);
+  });
+
+  document.body.appendChild(menu);
+
+  document.addEventListener(
+    'click',
+    e => {
+      if (!menu.contains(e.target) && e.target !== projectsBtn) {
+        menu.remove();
+      }
+    },
+    { once: true }
+  );
+}
+
+
+/* =========================
+   EVENTS
+========================= */
 
 createBtn.addEventListener('click', () => dialog.showModal());
 closeBtn.addEventListener('click', () => dialog.close());
+
+projectsBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  openProjectsMenu();
+});
 
 form.addEventListener('submit', e => {
   e.preventDefault();
 
   const data = new FormData(form);
+
   ITEMS.push({
+    id: crypto.randomUUID(),
     title: data.get('title'),
     description: data.get('description'),
     dueDate: data.get('dueDate'),
     priority: 1,
-    complete: false
+    complete: false,
+    projectId: data.get('projectId')
   });
 
-  renderTodos(ITEMS);
+  render();
   form.reset();
   dialog.close();
 });
+
+
+/* =========================
+   INIT
+========================= */
+
+populateProjectSelect();
+render();

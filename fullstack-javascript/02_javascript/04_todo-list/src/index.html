@@ -1,54 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Todo List</title>
-  <link rel="stylesheet" href="styles.css">
+
+  <!-- CSS assumed external -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
+  <!-- Sticky Header -->
   <header>
     <nav id="top-bar">
       <h1>Todo List</h1>
-      <button>Inbox</button>
-      <button id="create-btn">Create</button>
-      <button>Projects</button>
+
+      <button id="inbox-btn" type="button">
+        Inbox
+      </button>
+
+      <button id="create-btn" type="button">
+        Create
+      </button>
+
+      <button id="projects-btn" type="button">
+        Projects
+      </button>
     </nav>
   </header>
 
+  <!-- Main Content -->
   <main id="content">
     <section>
+      <!-- Updated dynamically by JS -->
       <h2>Inbox</h2>
+
       <ul id="list"></ul>
     </section>
   </main>
 
+  <!-- Create Todo Dialog -->
   <dialog id="todo-dialog">
-    <form method="dialog" id="todo-form">
+    <form id="todo-form">
       <header class="dialog-header">
         <h3>New Todo</h3>
-        <button id="close-btn" aria-label="Close">&times;</button>
+        <button
+          id="close-btn"
+          type="button"
+          aria-label="Close dialog"
+        >
+          &times;
+        </button>
       </header>
 
       <label>
         Title
-        <input name="title" type="text" required />
+        <input
+          name="title"
+          type="text"
+          required
+        />
       </label>
 
       <label>
         Description
-        <input name="description" type="text" />
+        <input
+          name="description"
+          type="text"
+        />
       </label>
 
       <label>
         Due Date
-        <input name="dueDate" type="date" />
+        <input
+          name="dueDate"
+          type="date"
+        />
       </label>
 
-      <button type="submit">Add</button>
+      <label>
+        Project
+        <select name="projectId" required>
+          <!-- Populated by JS -->
+        </select>
+      </label>
+
+      <button type="submit">
+        Add Todo
+      </button>
     </form>
   </dialog>
 
-  <script src="../index.js" defer></script>
+  <!-- App Script -->
+  <script src="../index.js"></script>
 </body>
 </html>
