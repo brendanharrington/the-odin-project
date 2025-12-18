@@ -29,6 +29,12 @@ const ITEMS = [
   }
 ];
 
+const STORAGE_KEYS = {
+  items: 'todo:items',
+  projects: 'todo:projects',
+  state: 'todo:state'
+};
+
 const state = {
   activeProjectId: 'inbox'
 };
@@ -45,7 +51,40 @@ const closeBtn = document.getElementById('close-btn');
 const projectsBtn = document.getElementById('projects-btn');
 const form = document.getElementById('todo-form');
 const heading = document.querySelector('main h2');
+const projectsDialog = document.getElementById('projects-dialog');
+const projectsList = document.getElementById('projects-list');
 
+/* =========================
+   LOCAL STORAGE
+========================= */
+
+function saveToStorage() {
+  localStorage.setItem(STORAGE_KEYS.items, JSON.stringify(ITEMS));
+  localStorage.setItem(STORAGE_KEYS.projects, JSON.stringify(PROJECTS));
+  localStorage.setItem(STORAGE_KEYS.state, JSON.stringify({
+    activeProjectId: state.activeProjectId
+  }));
+}
+
+function loadFromStorage() {
+  const items = JSON.parse(localStorage.getItem(STORAGE_KEYS.items));
+  const projects = JSON.parse(localStorage.getItem(STORAGE_KEYS.projects));
+  const savedState = JSON.parse(localStorage.getItem(STORAGE_KEYS.state));
+
+  if (Array.isArray(items)) {
+    ITEMS.length = 0;
+    ITEMS.push(...items);
+  }
+
+  if (Array.isArray(projects)) {
+    PROJECTS.length = 0;
+    PROJECTS.push(...projects);
+  }
+
+  if (savedState?.activeProjectId) {
+    state.activeProjectId = savedState.activeProjectId;
+  }
+}
 
 /* =========================
    SELECT POPULATION
@@ -98,7 +137,9 @@ function createTodoItem(item) {
   checkbox.addEventListener('click', () => {
     item.complete = !item.complete;
     checkbox.dataset.complete = item.complete;
+    saveToStorage();
   });
+
 
   const content = document.createElement('div');
   content.innerHTML = `
@@ -123,6 +164,25 @@ function render() {
   renderTodos(getVisibleTodos());
 }
 
+function renderProjectsDialog() {
+  projectsList.innerHTML = '';
+
+  PROJECTS.forEach(project => {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.textContent = project.name;
+
+    btn.addEventListener('click', () => {
+      state.activeProjectId = project.id;
+      saveToStorage();
+      render();
+      projectsDialog.close();
+    });
+
+    li.appendChild(btn);
+    projectsList.appendChild(li);
+  });
+}
 
 /* =========================
    PROJECTS MENU
@@ -146,9 +206,10 @@ function openProjectsMenu() {
 
     btn.addEventListener('click', () => {
       state.activeProjectId = project.id;
-      document.body.removeChild(menu);
+      saveToStorage();
       render();
     });
+
 
     menu.appendChild(btn);
   });
@@ -174,9 +235,9 @@ function openProjectsMenu() {
 createBtn.addEventListener('click', () => dialog.showModal());
 closeBtn.addEventListener('click', () => dialog.close());
 
-projectsBtn.addEventListener('click', e => {
-  e.stopPropagation();
-  openProjectsMenu();
+projectsBtn.addEventListener('click', () => {
+  renderProjectsDialog();
+  projectsDialog.showModal();
 });
 
 form.addEventListener('submit', e => {
@@ -194,6 +255,7 @@ form.addEventListener('submit', e => {
     projectId: data.get('projectId')
   });
 
+  saveToStorage();
   render();
   form.reset();
   dialog.close();
@@ -204,5 +266,6 @@ form.addEventListener('submit', e => {
    INIT
 ========================= */
 
+loadFromStorage();
 populateProjectSelect();
 render();
