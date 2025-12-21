@@ -128,3 +128,201 @@ label {
   flex-direction: column;
   gap: 0.25rem;
 }
+
+/* Projects dialog styles */
+#projects-list {
+  list-style: none;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 40vh;
+  overflow: auto;
+  padding: 0;
+}
+
+#projects-list li button {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+#projects-list li button:hover {
+  background: var(--card);
+}
+
+#projects-close-btn,
+#project-close-btn {
+  margin-left: auto;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+#add-project-btn {
+  margin-top: 0.75rem;
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid #888;
+  background: var(--light);
+  cursor: pointer;
+}
+
+/* Project form inputs */
+#project-form input[name="projectName"] {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+/* Smaller dialogs variation */
+dialog#project-dialog {
+  max-width: 360px;
+}
+
+/* ---------- General UI improvements ---------- */
+
+/* Top bar */
+#top-bar {
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(90deg, #2f2f2f, #262626);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+#top-bar h1 {
+  font-size: 1.2rem;
+  letter-spacing: 0.6px;
+}
+
+#top-bar button {
+  background: transparent;
+  border: 1px solid transparent;
+  color: white;
+  padding: 0.45rem 0.8rem;
+}
+
+#top-bar button:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.06);
+}
+
+#top-bar button.active {
+  background: #ffffff11;
+  border-color: rgba(255,255,255,0.12);
+  box-shadow: inset 0 -2px 0 rgba(255,255,255,0.02);
+}
+
+/* Main content card */
+#content {
+  padding: 2rem;
+  min-height: calc(100vh - 64px);
+}
+
+section {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff8f0;
+  border-radius: 10px;
+  padding: 1.25rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  padding-bottom: 0.5rem;
+}
+
+#list {
+  margin-top: 1rem;
+}
+
+.item {
+  align-items: center;
+  padding: 0.85rem;
+  gap: 1rem;
+}
+
+.item h3 {
+  margin-bottom: 0.25rem;
+}
+
+.item p {
+  margin: 0;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.checkbox {
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  height: 1.6rem;
+  width: 1.6rem;
+  border-radius: 4px;
+  border: 1px solid #999;
+  background: white;
+}
+
+.checkbox[data-complete="true"] {
+  background: linear-gradient(180deg,#4caf50,#389e3b);
+  border-color: #2e7d32;
+  color: white;
+}
+
+.checkbox::after {
+  content: '';
+  width: 10px;
+  height: 6px;
+  border-left: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+}
+
+.checkbox[data-complete="true"]::after {
+  content: '\2713';
+  color: white;
+  font-size: 0.9rem;
+}
+
+/* Dialog header and buttons */
+.dialog-header h3 {
+  margin: 0;
+}
+
+form button[type="submit"],
+#add-project-btn {
+  background: #323232;
+  color: white;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+form button[type="submit"]:hover,
+#add-project-btn:hover {
+  background: #424242;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+  padding: 0.5rem;
+  border: 1px solid #d0cfcf;
+  border-radius: 6px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  section { padding: 1rem; }
+  #top-bar h1 { font-size: 1rem; }
+}

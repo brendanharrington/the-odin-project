@@ -92,7 +92,40 @@
   </dialog>
 
   <dialog id="projects-dialog">
+    <button id="projects-close-btn">
+      &times;
+    </button>
     <ul id="projects-list"></ul>
+    <button id="add-project-btn" type="button">Add Project</button>
+  </dialog>
+
+  <!-- Create Project Dialog -->
+  <dialog id="project-dialog">
+    <form id="project-form">
+      <header class="dialog-header">
+        <h3>New Project</h3>
+        <button
+          id="project-close-btn"
+          type="button"
+          aria-label="Close dialog"
+        >
+          &times;
+        </button>
+      </header>
+
+      <label>
+        Project Name
+        <input
+          name="projectName"
+          type="text"
+          required
+        />
+      </label>
+
+      <button type="submit">
+        Create Project
+      </button>
+    </form>
   </dialog>
 
   <!-- App Script -->

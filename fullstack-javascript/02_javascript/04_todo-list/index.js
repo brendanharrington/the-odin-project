@@ -49,10 +49,16 @@ const dialog = document.getElementById('todo-dialog');
 const createBtn = document.getElementById('create-btn');
 const closeBtn = document.getElementById('close-btn');
 const projectsBtn = document.getElementById('projects-btn');
+const inboxBtn = document.getElementById('inbox-btn');
 const form = document.getElementById('todo-form');
 const heading = document.querySelector('main h2');
 const projectsDialog = document.getElementById('projects-dialog');
 const projectsList = document.getElementById('projects-list');
+const projectDialog = document.getElementById('project-dialog');
+const projectForm = document.getElementById('project-form');
+const projectCloseBtn = document.getElementById('project-close-btn');
+const addProjectBtn = document.getElementById('add-project-btn');
+const projectsCloseBtn = document.getElementById('projects-close-btn');
 
 /* =========================
    LOCAL STORAGE
@@ -162,6 +168,7 @@ function renderTodos(items) {
 function render() {
   heading.textContent = getActiveProjectName();
   renderTodos(getVisibleTodos());
+  if (inboxBtn) inboxBtn.classList.toggle('active', state.activeProjectId === 'inbox');
 }
 
 function renderProjectsDialog() {
@@ -234,11 +241,27 @@ function openProjectsMenu() {
 
 createBtn.addEventListener('click', () => dialog.showModal());
 closeBtn.addEventListener('click', () => dialog.close());
+projectCloseBtn.addEventListener('click', () => projectDialog.close());
+projectsCloseBtn.addEventListener('click', () => projectsDialog.close());
 
 projectsBtn.addEventListener('click', () => {
   renderProjectsDialog();
   projectsDialog.showModal();
 });
+
+addProjectBtn.addEventListener('click', () => {
+  projectsDialog.close();
+  projectDialog.showModal();
+});
+
+// Inbox button behavior
+if (inboxBtn) {
+  inboxBtn.addEventListener('click', () => {
+    state.activeProjectId = 'inbox';
+    saveToStorage();
+    render();
+  });
+}
 
 form.addEventListener('submit', e => {
   e.preventDefault();
@@ -259,6 +282,29 @@ form.addEventListener('submit', e => {
   render();
   form.reset();
   dialog.close();
+});
+
+projectForm.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const data = new FormData(projectForm);
+  const projectName = data.get('projectName').trim();
+
+  if (projectName) {
+    PROJECTS.push({
+      id: crypto.randomUUID(),
+      name: projectName
+    });
+
+    saveToStorage();
+    populateProjectSelect();
+    projectForm.reset();
+    projectDialog.close();
+    
+    // Reopen projects dialog to show new project
+    renderProjectsDialog();
+    projectsDialog.showModal();
+  }
 });
 
 
